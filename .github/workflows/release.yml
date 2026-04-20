@@ -1,6 +1,7 @@
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 name: Release
 
@@ -35,12 +36,7 @@ jobs:
       - name: Build
         run: make CARGO_BUILD_TARGET=${{ matrix.target }} ${{ matrix.package }}
       - name: Upload builds
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: actions/upload-artifact@v4
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./${{ matrix.package }}
-          asset_name: gfx-portability-${{ github.event.release.tag_name }}.${{ matrix.target }}.zip
-          asset_content_type: application/zip
+          path: ./${{ matrix.package }}
+          name: gfx-portability.zip
