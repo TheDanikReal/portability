@@ -41,7 +41,7 @@ endif
 
 ifeq ($(OS),Windows_NT)
 	LDFLAGS=
-	BACKEND=dx12
+	BACKEND=dx11
 	LIB_FILE_NAME=portability.dll
 	LIB_VULKAN_NAME=vulkan.dll
 	OS_NAME=windows
