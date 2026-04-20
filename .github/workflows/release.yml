@@ -19,7 +19,7 @@ jobs:
             package: gfx-portability.zip
     steps:
       - uses: actions/checkout@v2
-      - if: matrix.os == 'windows-2019'
+      - if: matrix.os == 'windows-latest'
         name: Install make
         run: choco install make
       - if: matrix.package == 'gfx-portability.zip'
