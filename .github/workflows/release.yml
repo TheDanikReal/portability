@@ -11,24 +11,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        name: ['macOS stable', 'iOS stable', 'Windows stable', 'UWP nightly']
+        name: ['Windows stable']
         include:
-          - name: macOS stable
-            os: macos-10.15
-            target: x86_64-apple-darwin
-            package: gfx-portability.zip
-          - name: iOS stable
-            os: macos-10.15
-            target: aarch64-apple-ios
-            package: gfx-portability.zip
           - name: Windows stable
             os: windows-2019
             target: x86_64-pc-windows-msvc
             package: gfx-portability.zip
-          - name: UWP nightly
-            os: windows-2019
-            target: x86_64-uwp-windows-msvc
-            package: gfx-portability-custom.zip
     steps:
       - uses: actions/checkout@v2
       - if: matrix.os == 'windows-2019'
