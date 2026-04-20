@@ -1548,7 +1548,14 @@ pub unsafe extern "C" fn gfxWaitForFences(
 ) -> VkResult {
     let result = match fenceCount {
         0 => Ok(true),
-        1 if !(*pFences).is_fake => gpu.device.wait_for_fence(&(*pFences).raw, timeout),
+        1 => {
+             let fence = &*pFences;
+             if fence.is_fake {
+                 Ok(true)
+             } else {
+                 gpu.device.wait_for_fence(&fence.raw, timeout)
+             }
+         }
         _ => {
             let fence_slice = slice::from_raw_parts(pFences, fenceCount as _);
             if fence_slice.iter().all(|fence| fence.is_fake) {
