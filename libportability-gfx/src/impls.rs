@@ -4451,7 +4451,8 @@ pub unsafe extern "C" fn gfxGetPhysicalDeviceSurfaceFormats2KHR(
     pSurfaceFormatCount: *mut u32,
     pSurfaceFormats: *mut VkSurfaceFormat2KHR,
 ) -> VkResult {
-    let formats = (*pSurfaceInfo)
+    let surface_info = &*pSurfaceInfo;
+    let formats = surface_info
         .surface
         .raw
         .supported_formats(&adapter.physical_device)
